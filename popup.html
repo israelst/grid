@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <style type="text/css">
+        html, body {
+          width: 10em;
+          background-color: transparent;
+          padding: 0;
+          margin: 0;
+        }
+
+        div {
+          padding: 1em;
+          text-align: center;
+          font-size: 1em;
+          cursor: pointer;
+        }
+
+        div:hover {
+          background-color: #EEAA31;
+        }
+    </style>
+</head>
+<body>
+  <div>12 columns</div>
+  <div>6 columns</div>
+  <div>4 columns</div>
+  <div>3 columns</div>
+  <script>
+    document.addEventListener("click", function(e) {
+      if (!e.target.nodeName == 'DIV') return;
+
+      var qtyCols = parseFloat(e.target.textContent);
+      chrome.tabs.executeScript(null, {
+        file: "/grid.js"
+      });
+
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {qtyCols: qtyCols});
+      });
+
+    });
+  </script>
+</body>
+</html>
