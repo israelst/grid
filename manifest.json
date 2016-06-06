@@ -10,15 +10,19 @@
 
     "applications": {
         "gecko": {
-            "id": "grid@mozilla.org"
+            "id": "grid@mozilla.org",
+             "strict_min_version": "46.0"
         }
     },
 
-    "content_scripts": [
-        {
-            "matches": ["*://*.mozilla.org/*"],
-            "js": ["grid.js"]
-        }
+    "browser_action": {
+        "default_icon": "icons/grid.svg",
+        "default_title": "Show Grid",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "activeTab"
     ]
 
 }
