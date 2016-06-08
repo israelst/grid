@@ -4,12 +4,14 @@ function addLines(){
         style = getComputedStyle(root),
         row = parseFloat(style.fontSize),
         height = parseFloat(style.height),
-        qtyOfRows = Math.floor(height / row);
-        console.log(height, row)
+        qtyOfRows = Math.floor(height / row),
+        gridContainer = document.createElement('div');
+        gridContainer.id = 'addon-grid-container';
 
     for(var i = 0; i <= qtyOfRows; i++){
-        addLine(root, row, i);
+        addLine(gridContainer, row, i);
     }
+    body.appendChild(gridContainer);
 }
 
 function createLine(top){
