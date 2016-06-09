@@ -1,17 +1,11 @@
-function addLines(){
-    var body = document.body,
-        root = body.parentElement,
-        style = getComputedStyle(root),
-        row = parseFloat(style.fontSize),
-        height = parseFloat(style.height),
-        qtyOfRows = Math.floor(height / row),
-        gridContainer = document.createElement('div');
-        gridContainer.id = 'addon-grid-container';
+function addLines(baseStyle, gridContainer){
+    var row = parseFloat(baseStyle.fontSize),
+        height = parseFloat(baseStyle.height),
+        qtyOfRows = Math.floor(height / row);
 
     for(var i = 0; i <= qtyOfRows; i++){
         addLine(gridContainer, row, i);
     }
-    body.appendChild(gridContainer);
 }
 
 function createLine(top){
@@ -32,10 +26,20 @@ function addLine(parent, rowHeight, i){
     parent.appendChild(lineEl);
 }
 
+function addContainer(parent){
+    var gridContainer = document.createElement('div');
+    gridContainer.id = 'addon-grid-container';
+    return parent.appendChild(gridContainer);
+}
 
 function grid(request, sender, sendResponse) {
-    console.log(request.qtyCols);
-    addLines();
+    var body = document.body,
+        root = document.body.parentElement,
+        style = getComputedStyle(root),
+        container = addContainer(body);
+
+    addLines(style, container);
+
     chrome.runtime.onMessage.removeListener(grid);
 }
 
