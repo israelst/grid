@@ -10,10 +10,10 @@
             stroke-opacity: 0.75;
         }
     </style>
-    <defs><path id="base" d="m 10 10 L 10 90" /></defs>
-    <use xlink:href="#base" transform="translate(45 0)" />
-    <use xlink:href="#base" transform="translate(65 0)" />
+    <defs><path id="base" d="m 0 0 L 0 80" /></defs>
+    <use xlink:href="#base" x="55" y="10" />
+    <use xlink:href="#base" x="75" y="10" />
 
-    <use xlink:href="#base" transform="rotate(-90 10 10) translate(-20 0)" id="hbase"/>
-    <use xlink:href="#hbase" transform="translate(0 20)" />
+    <use xlink:href="#base" x="-20" y="10" transform="rotate(-90 0 0)" id="hbase"/>
+    <use xlink:href="#hbase" y="20" />
 </svg>
