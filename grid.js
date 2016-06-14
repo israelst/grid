@@ -1,10 +1,18 @@
-function addLines(baseStyle, gridContainer){
+function rythmGenerator(rythm){
+    var beat = -1;
+    return function(){
+        beat = (beat + 1) % rythm.length;
+        return rythm[beat];
+    };
+}
+
+function addLines(baseStyle, gridContainer, beat){
     var row = parseFloat(baseStyle.fontSize),
         height = parseFloat(baseStyle.height),
         qtyOfRows = Math.floor(height / row);
 
     for(var i = 0; i <= qtyOfRows; i++){
-        addLine(gridContainer, row, i);
+        if(beat()) addLine(gridContainer, row, i);
     }
 }
 
@@ -36,9 +44,11 @@ function grid(request, sender, sendResponse) {
     var body = document.body,
         root = document.body.parentElement,
         style = getComputedStyle(root),
-        container = addContainer(body);
+        container = addContainer(body),
+        rythm = [1, 1, 1, 1],
+        beat = rythmGenerator(rythm);
 
-    addLines(style, container);
+    addLines(style, container, beat);
 
     chrome.runtime.onMessage.removeListener(grid);
 }
