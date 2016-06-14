@@ -14,6 +14,6 @@
     <use xlink:href="#base" x="55" y="10" />
     <use xlink:href="#base" x="75" y="10" />
 
-    <use xlink:href="#base" x="-20" y="10" transform="rotate(-90 0 0)" id="hbase"/>
+    <use xlink:href="#base" x="-25" y="10" transform="rotate(-90 0 0)" id="hbase"/>
     <use xlink:href="#hbase" y="20" />
 </svg>
