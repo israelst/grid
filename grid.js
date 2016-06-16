@@ -1,8 +1,8 @@
-function rythmGenerator(rythm){
+function rhythmGenerator(rhythm){
     var beat = -1;
     return function(){
-        beat = (beat + 1) % rythm.length;
-        return rythm[beat];
+        beat = (beat + 1) % rhythm.length;
+        return rhythm[beat];
     };
 }
 
@@ -45,8 +45,8 @@ function grid(request, sender, sendResponse) {
         root = document.body.parentElement,
         style = getComputedStyle(root),
         container = addContainer(body),
-        rythm = [1, 1, 1, 1],
-        beat = rythmGenerator(rythm);
+        rhythm = [1, 1, 0, 0],
+        beat = rhythmGenerator(rhythm);
 
     addLines(style, container, beat);
 
