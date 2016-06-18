@@ -12,7 +12,7 @@ function addLines(baseStyle, gridContainer, beat){
         qtyOfRows = Math.floor(height / row);
 
     for(var i = 0; i <= qtyOfRows; i++){
-        if(beat()) addLine(gridContainer, row, i);
+        if(beat()) addLine(gridContainer, i);
     }
 }
 
@@ -23,14 +23,13 @@ function createLine(top){
     div.style.zIndex= '999';
 
     div.style.position = 'absolute';
-    div.style.top = top + 'px';
+    div.style.top = top + 'em';
 
     return div;
 }
 
-
-function addLine(parent, rowHeight, i){
-    var lineEl = createLine(i * rowHeight);
+function addLine(parent, i){
+    var lineEl = createLine(i);
     parent.appendChild(lineEl);
 }
 
