@@ -1,19 +1,9 @@
-function rhythmGenerator(rhythm){
+function beatGenerator(rhythm){
     var beat = -1;
     return function(){
         beat = (beat + 1) % rhythm.length;
         return rhythm[beat];
     };
-}
-
-function addLines(baseStyle, gridContainer, beat){
-    var row = parseFloat(baseStyle.fontSize),
-        height = parseFloat(baseStyle.height),
-        qtyOfRows = Math.floor(height / row);
-
-    for(var i = 0; i <= qtyOfRows; i++){
-        if(beat()) addLine(gridContainer, i);
-    }
 }
 
 function createLine(top){
@@ -28,26 +18,36 @@ function createLine(top){
     return div;
 }
 
-function addLine(parent, i){
-    var lineEl = createLine(i);
-    parent.appendChild(lineEl);
-}
-
 function addContainer(parent){
     var gridContainer = document.createElement('div');
     gridContainer.id = 'addon-grid-container';
     return parent.appendChild(gridContainer);
 }
 
+function repeat(beat, length){
+    for(var i = 0, beats = []; i <= length; i++){
+        beats.push(beat());
+    }
+    return beats;
+}
+
+function qtyOfRows(style){
+    var height = parseFloat(style.height),
+        rowHeight = parseFloat(style.fontSize);
+
+    return Math.floor(height / rowHeight);
+}
+
 function grid(request, sender, sendResponse) {
     var body = document.body,
-        root = document.body.parentElement,
-        style = getComputedStyle(root),
+        rootStyle = getComputedStyle(body.parentElement),
         container = addContainer(body),
-        rhythm = [1, 1, 0, 0],
-        beat = rhythmGenerator(rhythm);
+        addLine = container.appendChild.bind(container),
+        rhythm = [1, 1, 1, 1];
 
-    addLines(style, container, beat);
+    repeat(beatGenerator(rhythm), qtyOfRows(rootStyle))
+        .map(createLine)
+        .reduce(addLine);
 
     chrome.runtime.onMessage.removeListener(grid);
 }
