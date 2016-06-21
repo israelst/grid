@@ -6,7 +6,7 @@ function beatGenerator(rhythm){
     };
 }
 
-function createLine(top){
+function createLine(top, i){
     var div = document.createElement('div');
     div.style.width = '100%';
     div.style.borderBottom = 'dashed 1px';
@@ -46,8 +46,10 @@ function grid(request, sender, sendResponse) {
         rhythm = [1, 1, 1, 1];
 
     repeat(beatGenerator(rhythm), qtyOfRows(rootStyle))
-        .map(createLine)
-        .reduce(addLine);
+        .forEach(function(shouldI, i){
+            console.log(shouldI, i);
+            if(shouldI) addLine(createLine(i));
+        });
 
     chrome.runtime.onMessage.removeListener(grid);
 }
