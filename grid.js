@@ -9,7 +9,7 @@ function beatGenerator(rhythm){
 function createLine(top){
     var div = document.createElement('div');
     div.style.width = '100%';
-    div.style.borderBottom = 'solid 1px';
+    div.style.borderBottom = 'dashed 1px';
     div.style.zIndex= '999';
 
     div.style.position = 'absolute';
