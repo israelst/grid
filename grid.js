@@ -6,7 +6,7 @@ function beatGenerator(rhythm){
     };
 }
 
-function createLine(top, i){
+function createLine(top){
     var div = document.createElement('div');
     div.style.width = '100%';
     div.style.borderBottom = 'dashed 1px';
@@ -24,17 +24,9 @@ function addContainer(parent){
     return parent.appendChild(gridContainer);
 }
 
-function repeat(beat, length){
-    for(var i = 0, beats = []; i <= length; i++){
-        beats.push(beat());
-    }
-    return beats;
-}
-
 function qtyOfRows(style){
     var height = parseFloat(style.height),
         rowHeight = parseFloat(style.fontSize);
-
     return Math.floor(height / rowHeight);
 }
 
@@ -43,13 +35,12 @@ function grid(request, sender, sendResponse) {
         rootStyle = getComputedStyle(body.parentElement),
         container = addContainer(body),
         addLine = container.appendChild.bind(container),
-        rhythm = [1, 1, 1, 1];
+        rhythm = [1, 1, 1, 1],
+        beat = beatGenerator(rhythm);
 
-    repeat(beatGenerator(rhythm), qtyOfRows(rootStyle))
-        .forEach(function(shouldI, i){
-            console.log(shouldI, i);
-            if(shouldI) addLine(createLine(i));
-        });
+    for(var i = 0; i <= qtyOfRows(rootStyle); i++){
+        if(beat()) addLine(createLine(i));
+    }
 
     chrome.runtime.onMessage.removeListener(grid);
 }
